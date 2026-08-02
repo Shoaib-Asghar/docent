@@ -1,0 +1,11 @@
+fastapi[standard]
+qdrant-client
+fastembed
+google-generativeai
+langfuse
+python-dotenv
+
+# Evals and Testing
+pytest
+ragas
+deepeval

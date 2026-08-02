@@ -1,1 +1,30 @@
-devdocs
+# Secrets & Config
+.env
+.env.*
+*.local
+
+# Node.js
+node_modules/
+dist/
+build/
+.docusaurus/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# OS / System
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Project Specific
+devdocs/

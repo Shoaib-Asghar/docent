@@ -1,0 +1,13 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: docent-qdrant
+    ports:
+      - "6333:6333"  # REST API
+      - "6334:6334"  # gRPC (used by Python client for faster streaming)
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: always
+
+volumes:
+  qdrant_data:
