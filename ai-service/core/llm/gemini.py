@@ -13,7 +13,7 @@ class GeminiProvider(BaseLLMProvider):
         self.model = genai.GenerativeModel(model_name)
         
     def generate_response(self, system_prompt: str, user_prompt: str, context_chunks: List[str]) -> str:
-        # Security Guardrail (Phase 8): Clearly separate instructions from retrieved (untrusted) data
+        # Security Guardrail: Clearly separate instructions from retrieved (untrusted) data
         context_str = "\n\n".join([f"--- Chunk {i+1} ---\n{chunk}" for i, chunk in enumerate(context_chunks)])
         
         full_prompt = f"""

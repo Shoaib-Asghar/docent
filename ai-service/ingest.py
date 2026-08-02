@@ -4,7 +4,7 @@ from core.vector_store import VectorStoreManager
 def parse_markdown_contextually(filepath: str):
     """
     Parses a markdown file and chunks it by Headers (H1 and H2).
-    This strictly satisfies the Phase 2 'contextual chunking' requirement,
+    This performs contextual chunking,
     avoiding blind fixed-size token splitting.
     """
     with open(filepath, 'r', encoding='utf-8') as f:

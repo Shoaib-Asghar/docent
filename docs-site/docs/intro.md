@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Welcome
 
-[Your Company Name] is a software development studio built by a founding team of engineers, covering the full delivery lifecycle — not just writing code, but testing it, deploying it, and keeping it running.
+StuzaSoft is a software development studio built by a founding team of engineers, covering the full delivery lifecycle — not just writing code, but testing it, deploying it, and keeping it running.
 
 ## What makes us different
 

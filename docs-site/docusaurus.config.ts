@@ -9,6 +9,19 @@ const config: Config = {
   tagline: 'AI-First Engineering Agency',
   favicon: 'img/favicon.ico',
 
+  // Inject the portable widget directly into the static site
+  scripts: [
+    {
+      src: '/docent-widget.js',
+      defer: true,
+    },
+  ],
+  stylesheets: [
+    {
+      href: '/docent-widget.css',
+    }
+  ],
+
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4

@@ -51,7 +51,7 @@ app.post('/api/chat', apiLimiter, async (req, res) => {
     
     const durationMs = Date.now() - startTime;
 
-    // Phase 3 Requirement: Structured Logging
+    // Structured Logging
     // We log the query, duration, and the metadata (rerank scores, chunk sources) provided by Python
     console.log(JSON.stringify({
       timestamp: new Date().toISOString(),
