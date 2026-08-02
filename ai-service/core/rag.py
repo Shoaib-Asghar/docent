@@ -35,41 +35,40 @@ class RAGPipeline:
         # it found related keywords, but isn't a "perfect fact match". 
         self.confidence_threshold = 0.01
 
-    def process_query(self, query: str) -> str:
+    def process_query(self, query: str) -> dict:
         """
         Executes the full RAG pipeline: Hybrid Retrieval -> Reranking -> Fallback Check -> Generation
+        Returns a dictionary with the answer and metadata for the API Gateway to log.
         """
-        # Step 1: Broad Hybrid Retrieval (Fast, Cheap, High Recall)
-        # We fetch 15 chunks, knowing many will be irrelevant, to ensure we don't miss anything.
         print(f"Retrieving candidates for query: '{query}'")
         candidates = self.vsm.search(query, limit=15)
         
         if not candidates:
-            return "I couldn't find any relevant documentation to address your query."
+            return {"answer": "I couldn't find any relevant documentation to address your query.", "metadata": {}}
             
-        # Step 2: Cross-Encoder Reranking (Slow, Highly Accurate, High Precision)
-        # We pair the user's query with every retrieved chunk to score exact relevance.
         pairs = [[query, chunk] for chunk in candidates]
         scores = self.reranker.predict(pairs)
         
-        # Zip the scores with the chunks and sort them descending
         scored_candidates = sorted(zip(scores, candidates), key=lambda x: x[0], reverse=True)
         
-        # Step 3: Confidence Handling
         top_score, best_chunk = scored_candidates[0]
-        print(f"Top rerank score: {top_score:.4f}")
         
         if top_score < self.confidence_threshold:
             print("Confidence too low. Triggering fallback.")
-            return "I found some related documents, but my confidence is too low to provide a safe, accurate answer. Could you clarify your question?"
+            return {"answer": "I found some related documents, but my confidence is too low to provide a safe, accurate answer. Could you clarify your question?", "metadata": {"top_score": float(top_score)}}
             
-        # Step 4: Context Truncation
-        # Keep only the top 5 highly relevant chunks to fit safely in the LLM's context window.
-        # This completely mitigates the "Lost in the Middle" failure mode.
         top_chunks = [chunk for score, chunk in scored_candidates[:5]]
         
-        # Step 5: Generation
+        # Extract sources for structured logging
+        sources = [chunk.split("DOCUMENT HIERARCHY: ")[1].split("\n")[0] for chunk in top_chunks if "DOCUMENT HIERARCHY: " in chunk]
+        
         print("Generating response via LLM...")
         response = self.llm.generate_response(SYSTEM_PROMPT, query, top_chunks)
         
-        return response
+        return {
+            "answer": response,
+            "metadata": {
+                "top_score": float(top_score),
+                "sources": sources
+            }
+        }

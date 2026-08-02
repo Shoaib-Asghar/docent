@@ -22,14 +22,15 @@ class QueryRequest(BaseModel):
 
 class QueryResponse(BaseModel):
     answer: str
+    metadata: dict
 
 @app.post("/api/chat", response_model=QueryResponse)
 def chat(request: QueryRequest):
     """
     Main endpoint for the frontend gateway to interact with the AI service.
     """
-    answer = rag_pipeline.process_query(request.query)
-    return {"answer": answer}
+    result = rag_pipeline.process_query(request.query)
+    return {"answer": result["answer"], "metadata": result["metadata"]}
 
 @app.get("/health")
 def health_check():
