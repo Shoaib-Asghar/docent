@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Docent',
-  tagline: 'AI-First Engineering Agency',
-  favicon: 'img/favicon.ico',
+  title: 'StuzaSoft Docs',
+  tagline: 'Engineering & AI Solutions',
+  favicon: 'img/Stuza_Favicon.png',
 
   // Inject the portable widget directly into the static site
   scripts: [
@@ -35,8 +35,8 @@ const config: Config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'StuzaSoft', // Usually your GitHub org/user name.
+  projectName: 'docent', // Usually your repo name.
 
   onBrokenLinks: 'throw',
 
@@ -57,7 +57,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Shoaib-Asghar/docent/tree/main/docs-site/',
         },
         blog: {
           showReadingTime: true,
@@ -68,7 +68,7 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Shoaib-Asghar/docent/tree/main/docs-site/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -88,21 +88,21 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Docent',
+      title: 'StuzaSoft',
       logo: {
-        alt: 'Docent Logo',
-        src: 'img/logo.svg',
+        alt: 'StuzaSoft Logo',
+        src: 'img/StuzaSoft_logo.png',
       },
       items: [
         {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Services',
+          label: 'Documentation',
         },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          href: 'https://github.com/Shoaib-Asghar/docent',
           label: 'GitHub',
           position: 'right',
         },
@@ -146,12 +146,16 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/Shoaib-Asghar/docent',
+            },
+            {
+              label: 'stuzasoft.tech',
+              href: 'https://stuzasoft.tech/',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} StuzaSoft. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

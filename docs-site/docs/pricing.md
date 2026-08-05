@@ -14,13 +14,13 @@ We price differently depending on how well-defined the work is, because that det
 | **Hourly / time & materials** | Ongoing or evolving work | Billed per hour, tracked and reported transparently |
 | **Retainer** | Ongoing support, QA, or DevOps-as-a-service | A fixed monthly commitment for a defined scope of ongoing work |
 
-## Indicative rates
+## Pricing Finalization
 
-- Fixed-price web MVP: **$800–$3,000**
-- Hourly development: **$15–$25/hr** to start
-- QA automation setup: **$120–$400**
-- CI/CD pipeline setup: **$400–$800**
-- AI chatbot/integration: **$150–$700+**
-- Workflow automation: **$100–$600** per build, **$1,000–$3,000/month** for a maintenance retainer
+Every project is unique. Final quotes depend heavily on scope, technical complexity, and required timelines. 
 
-All fixed-price engagements require a 30–50% deposit before work begins. Final quotes depend on scope, complexity, and timeline — request a quote for an exact number.
+When you request a project proposal, our team will:
+1. Conduct a discovery session to understand your specific requirements.
+2. Provide a detailed, transparent breakdown of estimated time and resources.
+3. Help you select the best engagement model (Fixed, Hourly, or Retainer) that aligns with your flexibility needs.
+
+All fixed-price engagements typically require a deposit before work begins, while hourly and retainer models are billed on a standard periodic schedule. Contact us directly to get a tailored estimate for your project.

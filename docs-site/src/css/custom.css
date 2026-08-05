@@ -1,30 +1,49 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap');
 
-/* You can override the default Infima variables here. */
+/**
+ * StuzaSoft Brand Theme Overrides
+ * Based on stuzasoft.tech styling (Inter font, Purple/Blue palette, Glass pill navbar)
+ */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  --ifm-color-primary: #7e5fab;
+  --ifm-color-primary-dark: #71559a;
+  --ifm-color-primary-darker: #6b5191;
+  --ifm-color-primary-darkest: #584378;
+  --ifm-color-primary-light: #8b6bc1;
+  --ifm-color-primary-lighter: #9272c7;
+  --ifm-color-primary-lightest: #a489d2;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  
+  /* Typography Overrides */
+  --ifm-font-family-base: 'Inter', sans-serif;
+  --ifm-heading-font-family: 'Inter', sans-serif;
+  --ifm-heading-font-weight: 800;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
+  /* Brighter purple for dark mode visibility */
+  --ifm-color-primary: #8a4baf;
+  --ifm-color-primary-dark: #7c439d;
+  --ifm-color-primary-darker: #753f94;
+  --ifm-color-primary-darkest: #61347a;
+  --ifm-color-primary-light: #9659ba;
+  --ifm-color-primary-lighter: #9b62be;
+  --ifm-color-primary-lightest: #ac7bc7;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Glass Pill Navbar Styling */
+.navbar {
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] .navbar {
+  background-color: rgba(5, 5, 5, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
 }

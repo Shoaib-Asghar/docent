@@ -51,18 +51,32 @@ app.post('/api/chat', apiLimiter, async (req, res) => {
     
     const durationMs = Date.now() - startTime;
 
-    // Structured Logging
-    // We log the query, duration, and the metadata (rerank scores, chunk sources) provided by Python
+    // 6. Output Filtering Guardrail
+    // Fallback in case the LLM disobeys the prompt and attempts to leak instructions
+    const lowerAnswer = answer.toLowerCase();
+    if (lowerAnswer.includes("you are docent") || lowerAnswer.includes("security guardrails") || lowerAnswer.includes("untrusted user data")) {
+      console.warn(JSON.stringify({
+        timestamp: new Date().toISOString(),
+        level: 'WARN',
+        event: 'prompt_leak_prevented',
+        query: query
+      }));
+      return res.status(403).json({ error: 'I cannot fulfill that request due to security constraints.' });
+    }
+
+    // Structured Security Logging
+    // Phase 8 dictates we retain query text, retrieved chunk IDs, and the final response.
     console.log(JSON.stringify({
       timestamp: new Date().toISOString(),
       level: 'INFO',
       event: 'chat_query_processed',
       query: query,
+      answer: answer, // Log the final response
       durationMs,
       metadata: metadata 
     }));
 
-    // We only return the answer to the frontend. The metadata stays strictly in our backend logs.
+    // We only return the sanitized answer to the frontend.
     res.json({ answer });
   } catch (error: any) {
     // Structured error logging
