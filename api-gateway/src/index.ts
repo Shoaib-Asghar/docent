@@ -21,8 +21,8 @@ app.use(cors({
   methods: ['POST', 'GET']
 }));
 
-// 3. Body parsing
-app.use(express.json());
+// 3. Body parsing (Hardened with size limits to prevent payload DoS)
+app.use(express.json({ limit: '10kb' }));
 
 // 4. Rate Limiting (Protects the expensive AI Service from abuse)
 const apiLimiter = rateLimit({
@@ -42,11 +42,19 @@ app.post('/api/chat', apiLimiter, async (req, res) => {
     return res.status(400).json({ error: 'Valid query string is required.' });
   }
 
+  // Enforce a hard length limit on the query itself
+  if (query.length > 1000) {
+    return res.status(400).json({ error: 'Query exceeds maximum allowed length (1000 characters).' });
+  }
+
   try {
     const startTime = Date.now();
     
-    // Forward the request to the Python AI Service
-    const aiResponse = await axios.post(`${AI_SERVICE_URL}/api/chat`, { query });
+    // Forward the request to the Python AI Service with a strict timeout
+    // Prevent the gateway from hanging indefinitely if the AI service stalls
+    const aiResponse = await axios.post(`${AI_SERVICE_URL}/api/chat`, { query }, {
+      timeout: 25000 // 25 seconds max
+    });
     const { answer, metadata } = aiResponse.data;
     
     const durationMs = Date.now() - startTime;
@@ -97,6 +105,11 @@ app.get('/health', (req, res) => {
   res.json({ status: 'gateway_healthy' });
 });
 
-app.listen(PORT, () => {
-  console.log(`API Gateway listening on port ${PORT}`);
-});
+// Only start the server if we aren't running tests
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`API Gateway listening on port ${PORT}`);
+  });
+}
+
+export default app;

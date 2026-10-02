@@ -13,9 +13,16 @@ app = FastAPI(
     description="Production-grade backend for the AI Docs Assistant."
 )
 
-# Initialize the pipeline globally so the models stay loaded in memory
-print("Booting up RAG Pipeline...")
-rag_pipeline = RAGPipeline()
+# We initialize the pipeline lazily so that importing main.py (e.g., during tests)
+# doesn't immediately load heavy PyTorch models into RAM.
+rag_pipeline = None
+
+def get_pipeline() -> RAGPipeline:
+    global rag_pipeline
+    if rag_pipeline is None:
+        print("Booting up RAG Pipeline (Lazy Load)...")
+        rag_pipeline = RAGPipeline()
+    return rag_pipeline
 
 class QueryRequest(BaseModel):
     query: str
@@ -29,7 +36,8 @@ def chat(request: QueryRequest):
     """
     Main endpoint for the frontend gateway to interact with the AI service.
     """
-    result = rag_pipeline.process_query(request.query)
+    pipeline = get_pipeline()
+    result = pipeline.process_query(request.query)
     return {"answer": result["answer"], "metadata": result["metadata"]}
 
 @app.get("/health")

@@ -27,8 +27,11 @@ COPY --from=builder /app/package.json ./package.json
 COPY src ./src
 COPY tsconfig.json ./
 
+# Run as non-root user for security compliance
+USER node
+
 # Expose API Gateway port
-EXPOSE 3000
+EXPOSE 4000
 
 # Start server using tsx directly (standard for lightweight TS services)
 CMD ["pnpm", "exec", "tsx", "src/index.ts"]

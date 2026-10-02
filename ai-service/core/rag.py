@@ -70,7 +70,11 @@ class RAGPipeline:
         sources = [chunk.split("DOCUMENT HIERARCHY: ")[1].split("\n")[0] for chunk in top_chunks if "DOCUMENT HIERARCHY: " in chunk]
         
         print("Generating response via LLM...")
-        response = self.llm.generate_response(SYSTEM_PROMPT, query, top_chunks)
+        try:
+            response = self.llm.generate_response(SYSTEM_PROMPT, query, top_chunks)
+        except Exception as e:
+            print(f"[ERROR] LLM Provider failed: {e}")
+            response = "I'm currently experiencing high latency or connectivity issues with my intelligence backend. Please try again in a few moments."
         
         return {
             "answer": response,

@@ -33,10 +33,17 @@ export default function Widget() {
     }
   }, []);
 
-  // Save to localStorage on change
+  // Save to localStorage on change (Hardened with size limits to prevent QuotaExceededError)
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('docent_chat_session', JSON.stringify(messages));
+      try {
+        // Keep only the last 50 messages in memory to prevent blowing up the 5MB localStorage limit
+        const recentMessages = messages.slice(-50);
+        localStorage.setItem('docent_chat_session', JSON.stringify(recentMessages));
+      } catch (e) {
+        console.warn("Storage quota exceeded. Clearing older messages.");
+        localStorage.removeItem('docent_chat_session');
+      }
     }
   }, [messages]);
 
