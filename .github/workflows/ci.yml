@@ -113,8 +113,15 @@ jobs:
           category: 'ai-service'
 
       # 11. Automated Testing & Evaluation (Phase 6 Gates)
-      - name: Run Unit Tests & DeepEval
+      - name: Run API Gateway Unit Tests (Node/Vitest)
         run: |
-          echo "Running standard software tests (pytest, jest)..."
-          echo "Running DeepEval golden dataset pipeline..."
-          # Tests will run here once we finalize the test suites!
+          cd api-gateway
+          corepack enable pnpm
+          pnpm install
+          pnpm exec vitest run
+
+      - name: Run AI Service Unit & Security Tests (Python/Pytest)
+        run: |
+          cd ai-service
+          pip install -r requirements.txt
+          pytest tests/
