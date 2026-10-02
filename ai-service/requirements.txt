@@ -7,5 +7,7 @@ python-dotenv
 
 # Evals and Testing
 pytest
+pytest-asyncio
+httpx
 ragas
 deepeval

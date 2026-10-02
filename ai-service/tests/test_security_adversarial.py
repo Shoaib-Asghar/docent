@@ -1,11 +1,24 @@
 import pytest
-from unittest.mock import patch
+from unittest.mock import patch, MagicMock
 from core.rag import RAGPipeline
 
 @pytest.fixture(scope="module")
 def rag_pipeline():
-    # Initialize the RAG pipeline once for the test module
-    return RAGPipeline()
+    patcher_ce = patch('core.rag.CrossEncoder')
+    patcher_vsm = patch('core.rag.VectorStoreManager')
+    
+    mock_ce = patcher_ce.start()
+    mock_vsm = patcher_vsm.start()
+    
+    # Create a mock reranker that just returns dummy scores
+    mock_ce.return_value.predict.return_value = [0.99]
+    
+    pipeline = RAGPipeline()
+    
+    yield pipeline
+    
+    patcher_ce.stop()
+    patcher_vsm.stop()
 
 def test_direct_prompt_injection(rag_pipeline):
     """

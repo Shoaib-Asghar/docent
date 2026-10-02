@@ -28,3 +28,8 @@ Thumbs.db
 
 # Project Specific
 devdocs/
+
+# Testing & Evals
+playwright-report/
+test-results/
+.deepeval/
