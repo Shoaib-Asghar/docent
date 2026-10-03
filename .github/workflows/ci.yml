@@ -93,21 +93,21 @@ jobs:
       # 10. Upload Security Results to GitHub Security Tab
       - name: Upload Trivy FS SARIF
         uses: github/codeql-action/upload-sarif@cdcdbb579706841c47f7063dda365e292e5cad7a # v3
-        if: always()
+        if: always() && hashFiles('trivy-results.sarif') != ''
         with:
           sarif_file: 'trivy-results.sarif'
           category: 'filesystem'
 
       - name: Upload Trivy API Gateway SARIF
         uses: github/codeql-action/upload-sarif@cdcdbb579706841c47f7063dda365e292e5cad7a # v3
-        if: always()
+        if: always() && hashFiles('trivy-api-gateway.sarif') != ''
         with:
           sarif_file: 'trivy-api-gateway.sarif'
           category: 'api-gateway'
 
       - name: Upload Trivy AI Service SARIF
         uses: github/codeql-action/upload-sarif@cdcdbb579706841c47f7063dda365e292e5cad7a # v3
-        if: always()
+        if: always() && hashFiles('trivy-ai-service.sarif') != ''
         with:
           sarif_file: 'trivy-ai-service.sarif'
           category: 'ai-service'

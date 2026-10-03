@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Enable pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@11.3.0 --activate
 
 # Copy dependencies
 COPY package.json pnpm-lock.yaml ./
@@ -17,7 +17,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 # Enable pnpm
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@11.3.0 --activate
 
 # Copy prod dependencies from builder
 COPY --from=builder /app/node_modules ./node_modules
