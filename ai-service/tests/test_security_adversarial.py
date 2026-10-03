@@ -1,9 +1,12 @@
+import os
 import pytest
 from unittest.mock import patch, MagicMock
 from core.rag import RAGPipeline
 
 @pytest.fixture(scope="module")
 def rag_pipeline():
+    if not os.environ.get("GEMINI_API_KEY"):
+        pytest.skip("GEMINI_API_KEY not found in environment. Skipping adversarial LLM tests.")
     patcher_ce = patch('core.rag.CrossEncoder')
     patcher_vsm = patch('core.rag.VectorStoreManager')
     
